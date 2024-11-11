@@ -53,6 +53,7 @@ public class ControllerImpl implements Controller {
 	
 	@Override
 	public void run() {
+		productService.init();
 		do {
 			showProducts();
 			OrderDto orderDto = orderProducts();
