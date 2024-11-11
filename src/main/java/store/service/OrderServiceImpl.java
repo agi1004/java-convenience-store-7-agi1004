@@ -1,6 +1,8 @@
 package store.service;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import store.domain.Product;
@@ -32,18 +34,10 @@ import static store.enums.PurchaseItemIndex.NAME;
 import static store.enums.PurchaseItemIndex.QUANTITY;
 
 public class OrderServiceImpl implements OrderService {
-	private static final OrderService INSTANCE;
 	private final OrderRepository orderRepository;
 	private final ProductRepository productRepository;
 	private final InputView inputView;
 	private final OutputView outputView;
-	
-	static {
-		INSTANCE = new OrderServiceImpl(OrderRepositoryImpl.getInstance(),
-									  	ProductRepositoryImpl.getInstance(),
-									  	InputViewImpl.getInstance(),
-									  	OutputViewImpl.getInstance());
-	}
 	
 	private OrderServiceImpl(final OrderRepository orderRepository,
 							 final ProductRepository productRepository,
@@ -56,7 +50,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	public static OrderService getInstance() {
-		return INSTANCE;
+		return new OrderServiceImpl(OrderRepositoryImpl.getInstance(),
+								  	ProductRepositoryImpl.getInstance(),
+								  	InputViewImpl.getInstance(),
+								  	OutputViewImpl.getInstance());
 	}
 	
 	@Override
@@ -158,7 +155,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	private boolean isValidPromotionDate(Promotion promotion) {
-		LocalDate now = LocalDate.now();
+		LocalDate now = LocalDate.now(getClock());
+		
 		LocalDate startDate = promotion.getStartDate();
 		LocalDate endDate = promotion.getEndDate();
 		return !now.isAfter(endDate) && !now.isBefore(startDate);
@@ -295,5 +293,12 @@ public class OrderServiceImpl implements OrderService {
 	
 	private void nonCoveredPromotion(Product product, long purchaseQuantity, long totalQuantity) {
 		orderRepository.addPayment(product, purchaseQuantity);
+	}
+	
+	private Clock getClock() {
+		return Clock.fixed(
+    	        LocalDate.of(2024, 2, 1).atStartOfDay(ZoneId.systemDefault()).toInstant(),
+    	        ZoneId.systemDefault()
+    	    );
 	}
 }
