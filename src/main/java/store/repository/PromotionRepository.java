@@ -8,4 +8,5 @@ import store.domain.Promotion;
 public interface PromotionRepository {
 	List<Promotion> findAll();
 	Optional<Promotion> findByName(String name);
+	void saveAll(List<Promotion> promotions);
 }

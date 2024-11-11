@@ -10,14 +10,15 @@ import store.loader.PromotionLoaderImpl;
 
 public class PromotionRepositoryImpl implements PromotionRepository {
 	private static final PromotionRepository INSTANCE;
-	private final List<Promotion> promotions;
+	private final List<Promotion> promotions = new ArrayList<>();;
 	
 	static {
 		INSTANCE = new PromotionRepositoryImpl(PromotionLoaderImpl.getInstance());
 	}
 	
 	private PromotionRepositoryImpl(final PromotionLoader promotionLoader) {
-		this.promotions = promotionLoader.load();
+		this.promotions.clear();
+		this.promotions.addAll(promotionLoader.load());
 	}
 	
 	public static PromotionRepository getInstance() {
@@ -34,5 +35,11 @@ public class PromotionRepositoryImpl implements PromotionRepository {
 		return promotions.stream()
 				.filter(promotion -> name.equals(promotion.getName()))
 				.findFirst();
+	}
+
+	@Override
+	public void saveAll(List<Promotion> promotions) {
+		this.promotions.clear();
+		this.promotions.addAll(promotions);
 	}
 }
