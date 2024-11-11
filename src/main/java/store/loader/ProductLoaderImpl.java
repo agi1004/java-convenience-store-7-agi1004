@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import store.constant.Const;
 import store.domain.Product;
 import store.domain.Promotion;
 import store.dto.ProductDto;
@@ -14,8 +14,7 @@ import store.repository.PromotionRepository;
 import store.repository.PromotionRepositoryImpl;
 
 import static store.constant.Regex.SEPARATOR;
-import static store.constant.Number.HEADER_LINE;
-import static store.constant.Number.NULL;
+import static store.constant.Const.NULL;
 import static store.enums.ProductIndex.NAME;
 import static store.enums.ProductIndex.PRICE;
 import static store.enums.ProductIndex.QUANTITY;
@@ -50,9 +49,21 @@ public class ProductLoaderImpl implements ProductLoader {
 	}
 	
 	private List<Product> readProductList(final BufferedReader br) throws IOException {
-		return br.lines().skip(HEADER_LINE)
-				.map(this::generateProduct)
-				.collect(Collectors.toList());
+		List<Product> products = new ArrayList<>();
+		String line;
+		br.readLine();
+		
+		while ((line = br.readLine()) != null) {
+			addProduct(line, products);
+		}
+		
+		return products;
+	}
+	
+	private void addProduct(String line, List<Product> products) {
+		Product product = generateProduct(line);
+		products.add(product);
+		checkProduct(products, product);
 	}
 	
 	private Product generateProduct(final String line) {
@@ -72,5 +83,20 @@ public class ProductLoaderImpl implements ProductLoader {
 		}
 		
 		return promotionRepository.findByName(promotionName).orElse(null);
+	}
+	
+	private void checkProduct(List<Product> products, Product product) {
+		if (mustAddAnotherProduct(product)) {
+			products.add(getAnotherProduct(product));
+		}
+	}
+	
+	private boolean mustAddAnotherProduct(Product product) {
+		return product.getName().equals(Const.REQUIRED_PRODUCT1) || product.getName().equals(Const.REQUIRED_PRODUCT2);
+	}
+	
+	private Product getAnotherProduct(Product product) {
+		ProductDto productDto = ProductDto.of(product.getName(), product.getPrice(), 0, null);
+		return Product.of(productDto);
 	}
 }
