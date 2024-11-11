@@ -31,7 +31,7 @@ public class ControllerImpl implements Controller {
 		INSTANCE = new ControllerImpl(ProductServiceImpl.getInstance(), 
 									  OrderServiceImpl.getInstance(),
 									  AmountServiceImpl.getInstance(),
-								  	  InputViewImpl.getInstance(), 
+								  	  InputViewImpl.getInstance(),
 								  	  OutputViewImpl.getInstance());
 	}
 	
