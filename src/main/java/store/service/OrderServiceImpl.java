@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 		List<Product> stocks = productRepository.findListInStockByName(productName);
 		
 		if (stocks.isEmpty()) {
-			throw new IllegalArgumentException(OUT_OF_STOCK);
+			throw new IllegalArgumentException(EXCEEDED_QUANTITY);
 		}
 		
 		return stocks;
