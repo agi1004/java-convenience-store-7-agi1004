@@ -1,7 +1,11 @@
 package store;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.LocalDate;
 
@@ -9,8 +13,10 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertNowTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApplicationTest extends NsTest {
     @Test
+    @Order(1)
     void 파일에_있는_상품_목록_출력() {
         assertSimpleTest(() -> {
             run("[물-1]", "N", "N");
@@ -38,6 +44,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    @Order(2)
     void 여러_개의_일반_상품_구매() {
         assertSimpleTest(() -> {
             run("[비타민워터-3],[물-2],[정식도시락-2]", "N", "N");
@@ -46,6 +53,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    @Order(3)
     void 기간에_해당하지_않는_프로모션_적용() {
         assertNowTest(() -> {
             run("[감자칩-2]", "N", "N");
@@ -54,6 +62,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    @Order(4)
     void 예외_테스트() {
         assertSimpleTest(() -> {
             runException("[컵라면-12]", "N", "N");
