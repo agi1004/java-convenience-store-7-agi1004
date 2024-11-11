@@ -12,14 +12,16 @@ import store.loader.ProductLoaderImpl;
 
 public class ProductRepositoryImpl implements ProductRepository {
 	private static final ProductRepository INSTANCE;
-	private final List<Product> products;
+	private final List<Product> products = new ArrayList<>();
 	
 	static {
 		INSTANCE = new ProductRepositoryImpl(ProductLoaderImpl.getInstance());
 	}
 	
 	private ProductRepositoryImpl(final ProductLoader productLoader) {
-		this.products = productLoader.load();
+		this.products.clear();
+		this.products.addAll(productLoader.load());
+		//this.products = productLoader.load();
 	}
 	
 	public static ProductRepository getInstance() {
@@ -49,6 +51,12 @@ public class ProductRepositoryImpl implements ProductRepository {
 		return findAll().stream()
 				.filter(product -> name.equals(product.getName()) && product.getQuantity() != 0)
 				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public void saveAll(List<Product> products) {
+		this.products.clear();
+		this.products.addAll(products);
 	}
 	
 	private int findIndex(Product product) {

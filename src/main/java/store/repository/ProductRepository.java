@@ -10,4 +10,5 @@ public interface ProductRepository {
 	Optional<Product> findByName(String name);
 	void save(Product product);
 	List<Product> findListInStockByName(String name);
+	void saveAll(List<Product> products);
 }
