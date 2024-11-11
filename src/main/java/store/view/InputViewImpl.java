@@ -3,7 +3,7 @@ package store.view;
 import java.util.List;
 
 import camp.nextstep.edu.missionutils.Console;
-import store.choice.Choice;
+import store.enums.Choice;
 
 import static store.constant.ExceptionMessage.INVALID_ITEMS_FORMAT;
 import static store.constant.Regex.SEPARATOR;
