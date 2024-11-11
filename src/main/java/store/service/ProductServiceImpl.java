@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import store.domain.Product;
 import store.domain.Order;
 import store.dto.ProductDto;
+import store.loader.ProductLoaderImpl;
 import store.repository.ProductRepository;
 import store.repository.ProductRepositoryImpl;
 import store.repository.OrderRepository;
@@ -45,6 +46,11 @@ public class ProductServiceImpl implements ProductService {
 		Map<Product, Long> payments = order.getPayments();
 		payments.keySet().stream()
 				.forEach(product -> calculate(product, payments));
+	}
+	
+	@Override
+	public void init() {
+        productRepository.saveAll(ProductLoaderImpl.getInstance().load());
 	}
 	
 	private void calculate(Product product, Map<Product, Long> payments) {
