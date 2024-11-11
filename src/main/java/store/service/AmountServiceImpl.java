@@ -6,10 +6,10 @@ import store.domain.Product;
 import store.dto.AmountDto;
 import store.dto.OrderDto;
 
-import static store.constant.Number.ZERO;
-import static store.constant.Number.MAX_MEMBERSHIP_LIMIT;
-import static store.constant.Number.MEMBERSHIP_DISCOUNT_PERCENT;
-import static store.constant.Number.UNIT;
+import static store.constant.Const.ZERO;
+import static store.constant.Const.MAX_MEMBERSHIP_LIMIT;
+import static store.constant.Const.MEMBERSHIP_DISCOUNT_PERCENT;
+import static store.constant.Const.UNIT;
 
 public class AmountServiceImpl implements AmountService {
 	private static final AmountService INSTANCE;

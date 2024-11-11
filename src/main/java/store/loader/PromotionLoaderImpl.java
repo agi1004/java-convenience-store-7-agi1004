@@ -12,7 +12,7 @@ import store.domain.Promotion;
 import store.dto.PromotionDto;
 
 import static store.constant.Regex.SEPARATOR;
-import static store.constant.Number.HEADER_LINE;
+import static store.constant.Const.HEADER_LINE;
 import static store.enums.PromotionIndex.NAME;
 import static store.enums.PromotionIndex.BUY;
 import static store.enums.PromotionIndex.GET;

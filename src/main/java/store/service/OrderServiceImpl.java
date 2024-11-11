@@ -27,9 +27,9 @@ import static store.constant.PrintMessage.NON_APPLICABLE_PROMOTIONAL_DISCOUNT;
 import static store.constant.PrintMessage.SUBJECT;
 import static store.constant.PrintMessage.FREE_OF_CHARGE;
 import static store.constant.Regex.ITEM_SEPARATOR;
-import static store.constant.Number.BOTH_END_INDEXES;
-import static store.constant.Number.FIRST_PRODUCT_INDEX;
-import static store.constant.Number.ZERO;
+import static store.constant.Const.BOTH_END_INDEXES;
+import static store.constant.Const.FIRST_PRODUCT_INDEX;
+import static store.constant.Const.ZERO;
 import static store.enums.PurchaseItemIndex.NAME;
 import static store.enums.PurchaseItemIndex.QUANTITY;
 
@@ -95,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 		List<Product> stocks = productRepository.findListInStockByName(productName);
 		
 		if (stocks.isEmpty()) {
-			throw new IllegalArgumentException(EXCEEDED_QUANTITY);
+			throw new IllegalArgumentException(OUT_OF_STOCK);
 		}
 		
 		return stocks;
