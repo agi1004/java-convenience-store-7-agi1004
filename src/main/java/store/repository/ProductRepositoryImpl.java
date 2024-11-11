@@ -15,13 +15,18 @@ public class ProductRepositoryImpl implements ProductRepository {
 	private final List<Product> products = new ArrayList<>();
 	
 	static {
-		INSTANCE = new ProductRepositoryImpl(ProductLoaderImpl.getInstance());
+		//INSTANCE = new ProductRepositoryImpl(ProductLoaderImpl.getInstance());
+		INSTANCE = new ProductRepositoryImpl();
 	}
 	
-	private ProductRepositoryImpl(final ProductLoader productLoader) {
-		this.products.clear();
-		this.products.addAll(productLoader.load());
-		//this.products = productLoader.load();
+//	private ProductRepositoryImpl(final ProductLoader productLoader) {
+//		this.products.clear();
+//		this.products.addAll(productLoader.load());
+//		//this.products = productLoader.load();
+//	}
+	
+	private ProductRepositoryImpl() {
+		
 	}
 	
 	public static ProductRepository getInstance() {
