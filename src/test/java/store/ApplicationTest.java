@@ -1,7 +1,12 @@
 package store;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import store.loader.ProductLoader;
+import store.loader.ProductLoaderImpl;
+import store.repository.ProductRepository;
+import store.repository.ProductRepositoryImpl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -11,6 +16,15 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ApplicationTest extends NsTest {
+	private ProductRepository productRepository;
+    
+    @BeforeEach
+    void setUp() {
+        productRepository = ProductRepositoryImpl.getInstance();
+        ProductLoader productLoader = ProductLoaderImpl.getInstance();
+        productRepository.saveAll(productLoader.load());
+    }
+	
     @Test
     void 파일에_있는_상품_목록_출력() {
         assertSimpleTest(() -> {
