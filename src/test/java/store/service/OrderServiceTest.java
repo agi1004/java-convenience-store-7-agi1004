@@ -21,10 +21,13 @@ import java.util.List;
 
 class OrderServiceTest {
     private OrderService orderService;
+    private ProductService productService;
 
     @BeforeEach
     void setUp() {
         orderService = OrderServiceImpl.getInstance();
+        productService = ProductServiceImpl.getInstance();
+        productService.init();
     }
     
     @AfterEach
