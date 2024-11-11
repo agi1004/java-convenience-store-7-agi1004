@@ -16,13 +16,13 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ApplicationTest extends NsTest {
-	private ProductRepository productRepository;
-    
-    @BeforeEach
-    void setUp() {
-        productRepository = ProductRepositoryImpl.getInstance();
-        productRepository.saveAll(ProductLoaderImpl.getInstance().load()); 
-    }
+//	private ProductRepository productRepository;
+//    
+//    @BeforeEach
+//    void setUp() {
+//        productRepository = ProductRepositoryImpl.getInstance();
+//        productRepository.saveAll(ProductLoaderImpl.getInstance().load()); 
+//    }
 	
     @Test
     void 파일에_있는_상품_목록_출력() {
