@@ -7,27 +7,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import store.domain.Product;
-import store.loader.ProductLoader;
-import store.loader.ProductLoaderImpl;
 
 public class ProductRepositoryImpl implements ProductRepository {
 	private static final ProductRepository INSTANCE;
 	private final List<Product> products = new ArrayList<>();
 	
 	static {
-		//INSTANCE = new ProductRepositoryImpl(ProductLoaderImpl.getInstance());
 		INSTANCE = new ProductRepositoryImpl();
 	}
 	
-//	private ProductRepositoryImpl(final ProductLoader productLoader) {
-//		this.products.clear();
-//		this.products.addAll(productLoader.load());
-//		//this.products = productLoader.load();
-//	}
-	
-	private ProductRepositoryImpl() {
-		
-	}
+	private ProductRepositoryImpl() {}
 	
 	public static ProductRepository getInstance() {
 		return INSTANCE;
