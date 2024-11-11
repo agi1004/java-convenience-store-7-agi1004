@@ -21,8 +21,7 @@ class ApplicationTest extends NsTest {
     @BeforeEach
     void setUp() {
         productRepository = ProductRepositoryImpl.getInstance();
-        ProductLoader productLoader = ProductLoaderImpl.getInstance();
-        productRepository.saveAll(productLoader.load());
+        productRepository.saveAll(ProductLoaderImpl.getInstance().load()); 
     }
 	
     @Test
